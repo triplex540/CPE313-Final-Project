@@ -38,13 +38,11 @@ if input_type == "Image":
 
 # For video uploads
 elif input_type == "Video":
-    uploaded_vid = st.file_uploader("Video is Uploaded!", type=["mp4", "avi", "mov"])
+    uploaded_vid = st.file_uploader("Upload a video with cars", type=["mp4", "avi", "mov"])
     if uploaded_vid:
         with tempfile.NamedTemporaryFile(delete=False, suffix=".mp4") as temp_file:
             temp_file.write(uploaded_vid.read())
             video_path = temp_file.name
-
-        st.video(video_path)
 
         st.markdown("**Running Detection and Classification on Video...**")
         with tempfile.NamedTemporaryFile(delete=False, suffix=".mp4") as out_file:
@@ -70,17 +68,15 @@ elif input_type == "Video":
             out.release()
 
         st.success("Video Processing Complete!")
-        st.video(output_path)
 
-        # Adding a download button for the output video
+        # Allowing downloads without previews
         with open(output_path, "rb") as f:
             video_bytes = f.read()
             video_buffer = io.BytesIO(video_bytes)
-            st.video(video_buffer)
         
-            st.download_button(
-                label="📥 Download Processed Video",
-                data=video_buffer,
-                file_name="yolo_processed_video.mp4",
-                mime="video/mp4"
-            )
+        st.download_button(
+            label="📥 Download Processed Video",
+            data=video_buffer,
+            file_name="yolo_processed_video.mp4",
+            mime="video/mp4"
+        )

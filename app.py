@@ -71,12 +71,12 @@ elif input_type == "Video":
         st.success("Video Processing Complete!")
         st.video(output_path)
 
-# Adding a download button for the output video
-with open(output_path, "rb") as f:
-    video_bytes = f.read()
-    st.download_button(
-        label="📥 Download the Processed Video",
-        data=video_bytes,
-        file_name="yolo_detected_video.mp4",
-        mime="video/mp4"
-    )
+        # Adding a download button for the output video
+        with open(output_path, "rb") as f:
+            video_bytes = f.read()
+            st.download_button(
+                label="📥 Download the Processed Video",
+                data=video_bytes,
+                file_name="yolo_detected_video.mp4",
+                mime="video/mp4"
+            )

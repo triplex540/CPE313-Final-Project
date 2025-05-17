@@ -1,3 +1,4 @@
+import io
 import streamlit as st
 from PIL import Image
 import tempfile
@@ -74,9 +75,12 @@ elif input_type == "Video":
         # Adding a download button for the output video
         with open(output_path, "rb") as f:
             video_bytes = f.read()
+            video_buffer = io.BytesIO(video_bytes)
+            st.video(video_buffer)
+        
             st.download_button(
-                label="📥 Download the Processed Video",
-                data=video_bytes,
-                file_name="yolo_detected_video.mp4",
+                label="📥 Download Processed Video",
+                data=video_buffer,
+                file_name="yolo_processed_video.mp4",
                 mime="video/mp4"
             )

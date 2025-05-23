@@ -1,14 +1,17 @@
 # CPE313 Final Project
-**The repository for the Streamlit app deployment of Vehicle Detection (Component 1).**
+## **The repository for the Streamlit app deployment of Vehicle Detection (Component 1).**
 Containing the Final Project's main notebook, its best saved trained model and others, the python source file app for Streamlit deployment, and dependencies text file, these are important files for the vehicle detection and classification function of the app. This project outlines the process of training three models where YOLOv11 Nano was deployed for the app, applied on the custom dataset with classes Sedan and SUV, integrated with the use of Roboflow for image labeling and annotations. The dataset was locally used and obtained through a unique API key towards Roboflow.
 
-##**About the Dataset**
+
+## **About the Dataset**
 Consists of 2799 images (1382 Sedans, and 1417 SUVs) where 2000 images were manually sourced from the Stanford Cars dataset, inclusive of Keras, added with supplementary external images of public-domain use. Leveraging Roboflow's Auto Labeling feature via Grounding DINO is the followed procedure to reduce manual labeling effort and maintain consistency. The dataset was split into Train:Val:Test ratio of 70:20:10 treated with data augmentation techniques such as resizing to 640x640, randomized horizontal flips, brightness/contrast shfiting, and pixel normalization. This ensures the balanced representation of both classes for improved generalization and prevent overfitting.
 
-##**Models Developed**
+
+## **Models Developed**
 For the Streamlit deployment, the team has preferred the use of YOLOv11 Nano, among the other trained two models, Faster R-CNN with ResNet50 and SSDLite with MobileNetV3 Large. The project was envisioned to deploy one-stage and two-stage detectors to seek the real-time performance differences among their setups -- to which one-stage (YOLO and SSDLite) offers speed and efficiency in trade-off to higher accuracy but slower speed which is the main characteristic for two-stage detectors (Faster R-CNN). Drawing realizations, the YOLOv11 Nano setup conducts the fastest video inferencing time but the slowest (though strikingly accurate) individual image inferencing, making it crucial for critical response in real-life applications. For mobile and edge devices, the SSDLite setup provided the fastest results with satisfactory but the least accuracy among the deployed models. Finally, the Faster R-CNN entails the most accurate inferencing but the slowest in performance, also consuming more storage space than either of the two previously mentioned models.
 
-##**Testing Trials, Performance, and Evaluation Metrics**
+
+## **Testing Trials, Performance, and Evaluation Metrics**
 Across the metrics, the YOLOv11 Nano has demonstrated high precision, recall, and COCO-style mAP amounting no less than 90%, with values of 92.5%, 91.5%, and 90.8%, respectively. The practicality of this setup relays strong localization and class discrimination for a lightweight variant. However, Faster-RCNN leads in stricter IoU thresholds, with SSDLite trading accuracy for speed; therefore, it can be concluded that YOLOv11 balances these features, making it suitable for real-time contexts. For the training regimen, the YOLOv11 Nano was trained at 3 epochs with 640x640 inputs, the Faster R-CNN trained by 10 epochs of batch = 4 with the use of SGD (with LR = 0.005, momentum = 0.9, and weight decay = 0.00005) for the optimizer setup, and the SSDLite trained similarly for consistency. Finally, with the inference speed test, the YOLOv11 Nano stands out in video inferencing, followed by SSDLite. However, this is reversed in individual image referencing under different workloads (having more cars to be classified), with YOLOv11 being the slowest and the SSDLite remarkably excelling with its fast image inferencing speed at an average of 2 seconds whilst following YOLOv11 Nano in video inferencing.
 
 **Link towards the Streamlit Application:** https://cpe313-final-project-nxtumxvdtrxl8ut8upakje.streamlit.app/
